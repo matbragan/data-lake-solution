@@ -18,5 +18,5 @@ def mongo_connection(database, collection) -> list:
 
 
 if __name__ == '__main__':
-  data = mongo_connection('udemy', 'people')
+  data = mongo_connection('hotmart', 'users')
   write_s3(data, 'users')

@@ -7,7 +7,7 @@ from utils.write_s3 import write_s3
 
 load_dotenv()
 
-def mysql_connection(database, table) -> list:
+def mysql_connection(database: str, table: str) -> list:
   cnx = mysql.connector.connect(
       host=os.getenv('MYSQL_CONN_HOST'),
       user=os.getenv('MYSQL_CONN_USER'),

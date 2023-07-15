@@ -7,7 +7,7 @@ from utils.write_s3 import write_s3
 
 load_dotenv()
 
-def mongo_connection(database, collection) -> list:
+def mongo_connection(database:str, collection:str) -> list:
   client = MongoClient(os.getenv('MONGO_CONN'))
   database = client[database]
   collection = database[collection]

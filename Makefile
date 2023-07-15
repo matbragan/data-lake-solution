@@ -1,1 +1,0 @@
-install packs: pip3 install -r requirements.txt

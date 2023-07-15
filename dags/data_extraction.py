@@ -19,7 +19,7 @@ with DAG(
     @task(task_id='mongo_extraction')
     def mongo_extraction() -> None:
         from extraction.mongo_extraction import mongo_connection
-        from extraction.utils.write_s3 import write_s3
+        from utils.write_s3 import write_s3
 
         data = mongo_connection('hotmart', 'users')
         write_s3(data, 'users')
@@ -27,7 +27,7 @@ with DAG(
     @task(task_id='mysql_extraction')
     def mysql_extraction() -> None:
         from extraction.mysql_extraction import mysql_connection
-        from extraction.utils.write_s3 import write_s3
+        from utils.write_s3 import write_s3
 
         data = mysql_connection('hotmart', 'sales')
         write_s3(data, 'sales')

@@ -1,7 +1,11 @@
+import os
+import sys
 from datetime import datetime
 
 from airflow import DAG
 from airflow.decorators import task
+
+sys.path.insert(0, os.path.abspath('.'))
 
 with DAG(
     dag_id='extraction_date',

@@ -5,7 +5,7 @@ from airflow.decorators import task
 from airflow.operators.dummy import DummyOperator
 
 with DAG(
-    dag_id='extraction_date',
+    dag_id='extraction_data',
     start_date=datetime(2023, 7, 15),
     schedule='@daily',
     catchup=False,

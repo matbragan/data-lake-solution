@@ -2,8 +2,7 @@ import os
 
 import mysql.connector
 from dotenv import load_dotenv
-
-from dags.utils.write_s3 import write_s3
+from utils.write_s3 import write_s3
 
 load_dotenv()
 
@@ -24,6 +23,7 @@ def mysql_connection(database: str, table: str) -> list:
     data = cursor.fetchall()
 
     return data
+
 
 if __name__ == '__main__':
     data = mysql_connection('hotmart', 'sales')

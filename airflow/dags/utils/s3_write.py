@@ -13,10 +13,10 @@ aws_key = os.getenv('AWS_ACCESS_KEY_ID')
 aws_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
 
 
-def write_s3(
+def s3_write(
     data: list,
     file_name: str,
-    bucket_name: str = 'hotmart-case'
+    bucket_name: str = 'lake-solution'
 ) -> None:
 
     df = pd.DataFrame(data)

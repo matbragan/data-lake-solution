@@ -2,7 +2,8 @@ import os
 
 from dotenv import load_dotenv
 from pymongo import MongoClient
-from utils.write_s3 import write_s3
+
+from airflow.dags.utils.s3_write import s3_write
 
 load_dotenv()
 
@@ -18,5 +19,5 @@ def mongo_connection(database: str, collection: str) -> list:
 
 
 if __name__ == '__main__':
-    data = mongo_connection('hotmart', 'users')
-    write_s3(data, 'users')
+    data = mongo_connection('lake_solution', 'users')
+    s3_write(data, 'users')

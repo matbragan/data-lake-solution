@@ -1,4 +1,5 @@
-import sys
+from pyspark.sql import SparkSession
 
-for path in sys.path:
-    print(path)
+spark = SparkSession.builder.appName('sparkSession123').getOrCreate()
+
+print(spark)

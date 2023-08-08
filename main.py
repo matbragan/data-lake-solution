@@ -2,6 +2,10 @@ from utils.spark_builder import spark_builder
 
 spark = spark_builder()
 
-transactions = spark.read.parquet('s3a://lake-solution/transactions/')
+users = spark.read.load('s3a://lake-solution/extraction/users/')
+sales = spark.read.load('s3a://lake-solution/extraction/sales/')
+transactions = spark.read.load('s3a://lake-solution/curation/transactions/')
 
+users.show()
+sales.show()
 transactions.show()

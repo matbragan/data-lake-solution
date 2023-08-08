@@ -20,8 +20,7 @@ with DAG(
     @task(task_id='mongo_extraction')
     def mongo_extraction() -> None:
         from extraction.mongo_extraction import mongo_connection
-
-        from airflow.dags.utils.s3_write import s3_write
+        from utils.s3_write import s3_write
 
         data = mongo_connection('lake_solution', 'users')
         s3_write(data, 'users')
@@ -29,8 +28,7 @@ with DAG(
     @task(task_id='mysql_extraction')
     def mysql_extraction() -> None:
         from extraction.mysql_extraction import mysql_connection
-
-        from airflow.dags.utils.s3_write import s3_write
+        from utils.s3_write import s3_write
 
         data = mysql_connection('lake_solution', 'sales')
         s3_write(data, 'sales')

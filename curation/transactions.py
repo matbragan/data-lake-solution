@@ -2,20 +2,10 @@ from utils.spark_builder import spark_builder
 
 spark = spark_builder()
 
-users = spark.read.parquet('s3a://lake-solution/users.parquet')
-sales = spark.read.parquet('s3a://lake-solution/sales.parquet')
+users = spark.read.load('s3a://lake-solution/extraction/users/')
+sales = spark.read.load('s3a://lake-solution/extraction/sales/')
 
-sales = (
-    sales
-    .withColumnsRenamed({
-        '0': 'id',
-        '1': 'user_id',
-        '2': 'date',
-        '3': 'value'
-    })
-)
-
-output = (
+dataframe = (
     users
     .join(
         sales,
@@ -31,4 +21,6 @@ output = (
     )
 )
 
-output.write.save('s3a://lake-solution/transactions/')
+dataframe.repartition(1)\
+    .write.mode('overwrite')\
+    .save(f's3a://lake-solution/curation/transactions/')

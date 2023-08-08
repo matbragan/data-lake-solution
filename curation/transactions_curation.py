@@ -1,4 +1,4 @@
-from pipelines.utils.spark_builder import spark_builder
+from utils.spark_builder import spark_builder
 
 spark = spark_builder()
 

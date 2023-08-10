@@ -1,6 +1,6 @@
-from utils.spark_builder import spark_builder
+from utils.spark_builder import SparkBuilder
 
-spark = spark_builder()
+spark = SparkBuilder().s3_connector()
 
 users = spark.read.load('s3a://lake-solution/extraction/users/')
 sales = spark.read.load('s3a://lake-solution/extraction/sales/')

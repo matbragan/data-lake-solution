@@ -1,9 +1,9 @@
 from pyspark.sql.types import IntegerType, StringType, StructField, StructType
 
 from utils.db_connections import mongo_connection
-from utils.spark_builder import spark_builder
+from utils.spark_builder import SparkBuilder
 
-spark = spark_builder()
+spark = SparkBuilder().s3_connector()
 
 table = 'users'
 

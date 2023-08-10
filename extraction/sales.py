@@ -2,9 +2,9 @@ from pyspark.sql.types import (DateType, FloatType, IntegerType, StructField,
                                StructType)
 
 from utils.db_connections import mysql_connection
-from utils.spark_builder import spark_builder
+from utils.spark_builder import SparkBuilder
 
-spark = spark_builder()
+spark = SparkBuilder().s3_connector()
 
 table = 'sales'
 

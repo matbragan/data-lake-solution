@@ -23,4 +23,5 @@ dataframe = (
 
 dataframe.repartition(1)\
     .write.mode('overwrite')\
+    .partitionBy(None)\
     .save(f's3a://lake-solution/curation/transactions/')

@@ -18,4 +18,5 @@ dataframe = spark.createDataFrame(data, schema)
 
 dataframe.repartition(1)\
     .write.mode('overwrite')\
+    .partitionBy(None)\
     .save(f's3a://lake-solution/extraction/{table}/')

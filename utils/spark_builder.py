@@ -28,3 +28,6 @@ class SparkBuilder():
         spark = self.builder.getOrCreate()
 
         return spark
+
+    def delta_connector(self):
+        pass

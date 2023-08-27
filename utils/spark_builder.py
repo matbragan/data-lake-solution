@@ -9,13 +9,13 @@ load_dotenv()
 class SparkBuilder():
 
     def __init__(self):
-        self.aws_key = os.getenv('AWS_ACCESS_KEY_ID')
-        self.aws_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
-        self.aws_credentials_provider = 'SimpleAWSCredentialsProvider'
-
         self.builder = SparkSession.builder.appName('data-lake-solution')
 
     def s3_connector(self):
+        self.aws_key = os.getenv('AWS_ACCESS_KEY_ID')
+        self.aws_secret_key = os.getenv('AWS_SECRET_ACCESS_KEY')
+        self.aws_credentials_provider = 'SimpleAWSCredentialsProvider'
+        
         self.builder = (
             self.builder
             .config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:3.3.2')

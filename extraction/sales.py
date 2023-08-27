@@ -1,12 +1,20 @@
+import sys
+
+sys.path.insert(1, '/home/matbragan/Documents/data-lake-solution/')
+
 from pyspark.sql.types import (DateType, FloatType, IntegerType, StructField,
                                StructType)
+from settings import LAYER
 
 from utils.db_connections import mysql_connection
 from utils.spark_builder import SparkBuilder
+from utils.spark_writer import spark_writer
 
 spark = SparkBuilder().s3_connector()
 
 table = 'sales'
+
+data = mysql_connection(database='lake_solution', table=table)
 
 schema = StructType([
     StructField('id', IntegerType(), False),
@@ -15,11 +23,6 @@ schema = StructType([
     StructField('value', FloatType(), True),
 ])
 
-data = mysql_connection(database='lake_solution', table=table)
-
 dataframe = spark.createDataFrame(data, schema)
 
-dataframe.repartition(1)\
-    .write.mode('overwrite')\
-    .partitionBy(None)\
-    .save(f's3a://lake-solution/extraction/{table}/')
+spark_writer(dataframe=dataframe, layer=LAYER, table=table)

@@ -4,13 +4,11 @@ services:
 
   mongo:
     image: mongo:latest
-    restart: always
     environment:
       MONGO_INITDB_ROOT_USERNAME: mongodb
       MONGO_INITDB_ROOT_PASSWORD: mongodb
 
   mysql:
     image: mysql:latest
-    restart: always
     environment:
       MYSQL_ROOT_PASSWORD: mysql123

@@ -1,9 +1,18 @@
-{
+import json
+import os
+
+from dotenv import load_dotenv
+
+load_dotenv()
+
+database_hostname = os.getenv("DATABASE_HOSTNAME")
+
+json_template = {
     "name": "sales-connector",
     "config": {
         "connector.class": "io.debezium.connector.mysql.MySqlConnector",
         "tasks.max": "1",
-        "database.hostname": "192.168.1.11",
+        "database.hostname": "",
         "database.port": "3306",
         "database.user": "newuser",
         "database.password": "Newuser4%",
@@ -15,3 +24,10 @@
         "include.schema.changes": "true"
     }
 }
+
+json_template["config"]["database.hostname"] = database_hostname
+
+mysql_connector = json.dumps(json_template, indent=4)
+
+with open('mysql_connector.json', 'w') as json_file:
+    json_file.write(mysql_connector)

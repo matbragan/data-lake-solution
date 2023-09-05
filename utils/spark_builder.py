@@ -10,11 +10,11 @@ class SparkBuilder():
 
     def __init__(self):
         self.builder = SparkSession.builder.appName('data-lake-solution') \
-        .config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:3.3.2,io.delta:delta-core_2.12:1.0.0')
+        .config('spark.jars.packages', 'org.apache.hadoop:hadoop-aws:3.3.2,io.delta:delta-core_2.12:2.4.0')
 
     def __call__(self):
         self.s3_connector()
-        # self.delta_connector()
+        self.delta_connector()
         
         return self.builder.getOrCreate()
 
@@ -36,4 +36,5 @@ class SparkBuilder():
             self.builder
             .config('spark.sql.extensions', 'io.delta.sql.DeltaSparkSessionExtension')
             .config('spark.sql.catalog.spark_catalog', 'org.apache.spark.sql.delta.catalog.DeltaCatalog')
+            .config('spark.databricks.delta.retentionDurationCheck.enabled', 'false')
         )

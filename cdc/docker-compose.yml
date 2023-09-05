@@ -1,24 +1,6 @@
 version: '3.8'
 
 services:
-  # zookeeper:
-  #   container_name: cdc_zookeeper
-  #   image: quay.io/debezium/zookeeper:2.3
-  #   ports:
-  #     - 2181:2181
-  #   restart: always
-  
-  # kafka:
-  #   container_name: cdc_kafka
-  #   image: quay.io/debezium/kafka:2.3
-  #   ports:
-  #     - 9092:9092
-  #   depends_on:
-  #     - zookeeper
-  #   environment:
-  #     BROKER_ID: 1
-  #     ZOOKEEPER_CONNECT: zookeeper:2181
-
   zookeeper:
     container_name: cdc_zookeeper
     image: confluentinc/cp-zookeeper:7.5.0
@@ -42,7 +24,7 @@ services:
 
   kafka_connect_source:
     container_name: cdc_kafka_connect_source
-    image: quay.io/debezium/connect:2.3
+    build: .
     ports:
       - 8083:8083
     depends_on:
@@ -53,6 +35,32 @@ services:
       CONFIG_STORAGE_TOPIC: connect_source_configs
       OFFSET_STORAGE_TOPIC: connect_source_offsets
       STATUS_STORAGE_TOPIC: connect_source_statuses
+    command:
+      - bash
+      - -c
+      - |
+        echo "Launching Kafka Connect worker"
+        /docker-entrypoint.sh start & 
+
+        echo "Waiting for Kafka Connect to start listening on localhost:8083 ⏳"
+        while : ; do
+            curl_status=$$(curl -s -o /dev/null -w %{http_code} http://localhost:8083/connectors)
+            echo -e $$(date) " Kafka Connect listener HTTP state: " $$curl_status " (waiting for 200)"
+            if [ $$curl_status -eq 200 ] ; then
+            break
+            fi
+            sleep 5
+        done
+
+        sleep 25
+
+        echo -e "\n--\n+> Creating Kafka Connect source connectors"
+        curl -i -X POST -H "Accept:application/json" \
+          -H "Content-Type:application/json" \
+          localhost:8083/connectors/ \
+          -d @/mysql_connector.json
+        
+        sleep infinity
 
   kafka_connect_sink:
     container_name: cdc_kafka_connect_sink
@@ -61,6 +69,8 @@ services:
       - 8084:8083
     depends_on:
       - kafka
+    env_file:
+      - ../.env
     environment:
       CONNECT_BOOTSTRAP_SERVERS: kafka:9092
       CONNECT_GROUP_ID: 2
@@ -70,47 +80,46 @@ services:
       CONNECT_KEY_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_VALUE_CONVERTER: org.apache.kafka.connect.json.JsonConverter
       CONNECT_REST_ADVERTISED_HOST_NAME: localhost
-      CONNECT_PLUGIN_PATH: /usr/share/java
+      CONNECT_PLUGIN_PATH: /usr/share/confluent-hub-components
       CONNECT_REPLICATION_FACTOR: 1
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
-  
     command:
-        - bash
-        - -c
-        - |
-          echo -e "\n Installing Connector"
-          confluent-hub install --no-prompt confluentinc/kafka-connect-s3:10.5.0
-          #
-          echo "Launching Kafka Connect worker"
-          /etc/confluent/docker/run &
-          #
-          sleep infinity
+      - bash
+      - -c
+      - |
+        echo -e "\n Installing Connector"
+        confluent-hub install --no-prompt confluentinc/kafka-connect-s3:10.5.0
+        
+        echo "Launching Kafka Connect worker"
+        /etc/confluent/docker/run &
 
-          echo "Waiting for Kafka Connect to start listening on localhost:8083 ⏳"
-          while : ; do
-              curl_status=$$(curl -s -o /dev/null -w %{http_code} http://localhost:8083/connectors)
-              echo -e $$(date) " Kafka Connect listener HTTP state: " $$curl_status " (waiting for 200)"
-              if [ $$curl_status -eq 200 ] ; then
-              break
-              fi
-              sleep 5
-          done
+        echo "Waiting for Kafka Connect to start listening on localhost:8083 ⏳"
+        while : ; do
+            curl_status=$$(curl -s -o /dev/null -w %{http_code} http://localhost:8083/connectors)
+            echo -e $$(date) " Kafka Connect listener HTTP state: " $$curl_status " (waiting for 200)"
+            if [ $$curl_status -eq 200 ] ; then
+            break
+            fi
+            sleep 5
+        done
 
-          echo -e "\n--\n+> Creating Kafka Connect source connectors"
-          curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" \
-            http://localhost:8083/connectors/s3-connector/config \
-            --data '
-              {
-                "connector.class": "io.confluent.connect.s3.S3SinkConnector",
-                "tasks.max": "1",
-                "topics": "mysqlsales.lake_solution.sales",
-                "s3.bucket.name": "lake-solution",
-                "storage.class": "io.confluent.connect.s3.storage.S3Storage",
-                "format.class": "io.confluent.connect.s3.format.avro.AvroFormat",
-                "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
-                "partitioner.class": "io.confluent.connect.storage.partitioner.DefaultPartitioner",
-                "name": "s3-sink",
-              }
-            '
+        echo -e "\n--\n+> Creating Kafka Connect sink connectors"
+        curl -i -X PUT -H  "Content-Type:application/json" \
+          http://localhost:8083/connectors/s3-connector/config \
+          -d '{
+            "connector.class": "io.confluent.connect.s3.S3SinkConnector",
+            "tasks.max": "1",
+            "topics": "mysqlsales.lake_solution.sales",
+            "s3.region": "us-east-1",
+            "s3.bucket.name": "lake-solution",
+            "flush.size": "1",
+            "storage.class": "io.confluent.connect.s3.storage.S3Storage",
+            "format.class": "io.confluent.connect.s3.format.parquet.ParquetFormat",
+            "schema.generator.class": "io.confluent.connect.storage.hive.schema.DefaultSchemaGenerator",
+            "partitioner.class": "io.confluent.connect.storage.partitioner.DefaultPartitioner",
+            "name": "s3-connector"
+          }'
+        
+        sleep infinity

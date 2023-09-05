@@ -80,10 +80,6 @@ Necessary to `update` events
 ### Deployment
 - Create the containers, with Zookeeper, Kafka and Kafka Connect:
     ~~~sh
-    docker-compose up -d
-    ~~~
-- Use the `curl` command to register the Debezium MySQL connector:
-    ~~~sh
     python3 mysql_connector.py
-    curl -i -X POST -H "Accept:application/json" -H "Content-Type:application/json" localhost:8083/connectors/ -d @mysql_connector.json
+    docker-compose up -d
     ~~~

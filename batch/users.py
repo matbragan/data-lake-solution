@@ -3,13 +3,13 @@ import sys
 sys.path.insert(1, '/home/matbragan/Documents/data-lake-solution/')
 
 from pyspark.sql.types import IntegerType, StringType, StructField, StructType
-from settings import LAYER
 
 from utils.db_connections import mongo_connection
 from utils.spark_builder import SparkBuilder
-from utils.spark_writer import spark_writer
+from utils.spark_writer import SparkWriter
 
-spark = SparkBuilder().s3_connector()
+builder = SparkBuilder()
+spark = builder()
 
 table = 'users'
 
@@ -22,4 +22,6 @@ schema = StructType([
 
 dataframe = spark.createDataFrame(data, schema)
 
-spark_writer(dataframe=dataframe, layer=LAYER, table=table)
+writer = SparkWriter(spark=spark, path='batch_extraction/users/')
+writer.s3_writer(dataframe=dataframe)
+writer.vacuum_and_optimize()

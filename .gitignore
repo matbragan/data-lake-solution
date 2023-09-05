@@ -2,6 +2,7 @@ logs/
 evolution.txt
 tech_challenge.pdf
 cdc/mysql_connector.json
+dev.ipynb
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

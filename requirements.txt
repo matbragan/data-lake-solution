@@ -1,0 +1,5 @@
+python-dotenv==0.21.1
+pymongo==4.4.1
+mysql-connector-python==8.0.31
+pyspark==3.4.1
+delta-spark==2.4.0

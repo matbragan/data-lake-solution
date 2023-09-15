@@ -1,5 +1,9 @@
 version: '3.8'
 
+networks:
+  lake-solution:
+    driver: bridge
+
 services:
   zookeeper:
     container_name: cdc_zookeeper
@@ -8,6 +12,8 @@ services:
       - 2181:2181
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
+    networks:
+      - lake-solution
 
   kafka:
     container_name: cdc_kafka
@@ -21,6 +27,8 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka:9092
       KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+    networks:
+      - lake-solution
 
   kafka_connect_source:
     container_name: cdc_kafka_connect_source
@@ -35,6 +43,8 @@ services:
       CONFIG_STORAGE_TOPIC: connect_source_configs
       OFFSET_STORAGE_TOPIC: connect_source_offsets
       STATUS_STORAGE_TOPIC: connect_source_statuses
+    networks:
+      - lake-solution
     command:
       - bash
       - -c
@@ -85,6 +95,8 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: 1
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: 1
+    networks:
+      - lake-solution
     command:
       - bash
       - -c

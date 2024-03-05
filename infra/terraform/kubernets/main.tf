@@ -11,7 +11,7 @@ resource "azurerm_kubernetes_cluster" "k8s" {
 
     default_node_pool {
         name       = "lowcost"
-        node_count = 1
+        node_count = var.node_count
         vm_size    = var.vm_size
     }
 

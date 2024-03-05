@@ -41,3 +41,8 @@ argocd login "<external_id>" --username "admin" --password "<pwd>" --insecure
 ~~~sh
 argocd cluster add "DataLake"
 ~~~
+
+#### Add git repo to ArgoCD. Useful link - [Credencial ArgoCD Git](https://argo-cd.readthedocs.io/en/stable/user-guide/private-repositories/)
+~~~sh
+kubectl apply -f git-repo-con.yaml -n gitops
+~~~

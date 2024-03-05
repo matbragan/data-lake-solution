@@ -32,7 +32,7 @@ kubectl get svc argocd-server -n gitops
 kubectl -n gitops get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d; echo
 ~~~
 
-#### Log in ArcoCD cli
+#### Log in ArcoCD CLI
 ~~~sh
 argocd login "<external_id>" --username "admin" --password "<pwd>" --insecure
 ~~~

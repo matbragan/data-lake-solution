@@ -20,5 +20,5 @@ variable "vm_size" {
 
 variable "node_count" {
     type    = number
-    default = 1
+    default = 2
 }

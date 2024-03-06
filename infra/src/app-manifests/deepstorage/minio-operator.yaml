@@ -13,9 +13,9 @@ spec:
       valueFiles:
         - values.yaml
   destination:
-      name: 'DataLake'
-      namespace: deepstorage
-      server: ''
+    name: 'DataLake'
+    namespace: deepstorage
+    server: ''
   syncPolicy:
     syncOptions:
       - CreateNamespace=true

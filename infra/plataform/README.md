@@ -6,16 +6,16 @@ terraform init
 terraform apply
 ~~~
 
-### Expose the MinIO tenant console
+### Expose MinIO console
 ~~~sh
-kubectl port-forward svc/console -n minio-operator 9090:9090
+kubectl port-forward svc/console -n deepstorage 9090:9090
 
 # copy in clipboard the JWT
-kubectl get secret/console-sa-secret -n minio-operator -o json | jq -r ".data.token" | base64 -d | xclip -selection clipboard
+kubectl get secret/console-sa-secret -n deepstorage -o json | jq -r ".data.token" | base64 -d | xclip -selection clipboard
 ~~~
 Now you can connect to the MinIO console at http://localhost:9090, with JWT previously copied.
 
-### Expose Trino coordinator
+### Expose Trino
 ~~~sh
 POD_NAME=$(kubectl get pods -n trino -l "app=trino,release=trino,component=coordinator" -o name)
 kubectl port-forward $POD_NAME -n trino 8080:8080

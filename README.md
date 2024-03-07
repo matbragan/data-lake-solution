@@ -9,7 +9,7 @@ All the resources needed to create a Kubernetes cluster as well the complete Pla
 for the data environment using - or not - GitOps.
 
 For environment deployment:
-1. [Kubernetes](https://github.com/matbragan/data-lake-solution/tree/main/infra/kubernets)
+1. [Kubernetes](https://github.com/matbragan/data-lake-solution/tree/main/infra/kubernetes)
 2. [GitOps](https://github.com/matbragan/data-lake-solution/tree/main/infra/gitops)
 3. [Platform](https://github.com/matbragan/data-lake-solution/tree/main/infra/platform)
 

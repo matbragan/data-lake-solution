@@ -1,4 +1,4 @@
-# Plataform Deployment
+# Platform Deployment
 
 ### Build
 ~~~sh

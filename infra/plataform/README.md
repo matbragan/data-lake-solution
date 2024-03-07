@@ -8,14 +8,17 @@ terraform apply
 
 ### Expose the MinIO tenant console
 ~~~sh
-kubectl port-forward svc/datalake-console -n minio-tenant 9090:9090
+kubectl port-forward svc/console -n minio-operator 9090:9090
+
+# copy in clipboard the JWT
+kubectl get secret/console-sa-secret -n minio-operator -o json | jq -r ".data.token" | base64 -d | xclip -selection clipboard
 ~~~
-Now you can connect to the MinIO console at http://localhost:9090, with credentials past in minion-tenant.yaml value.
+Now you can connect to the MinIO console at http://localhost:9090, with JWT previously copied.
 
 ### Expose Trino coordinator
 ~~~sh
 POD_NAME=$(kubectl get pods -n trino -l "app=trino,release=trino,component=coordinator" -o name)
-kubectl port-forward -n trino $POD_NAME 8080:8080
+kubectl port-forward $POD_NAME -n trino 8080:8080
 ~~~
 Now you can connect to the Trino coordinator at http://localhost:8080, with trino user.
 

@@ -4,11 +4,6 @@
 - [Helm](https://helm.sh/docs/intro/install/)
 - [ArgoCD](https://argo-cd.readthedocs.io/en/stable/cli_installation/)
 
-### Repos
-~~~sh
-helm repo add argo https://argoproj.github.io/argo-helm
-~~~
-
 ### Build
 ~~~sh
 terraform init

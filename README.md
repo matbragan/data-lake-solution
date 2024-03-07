@@ -10,7 +10,7 @@ for the data environment using - or not - GitOps.
 
 For environment deployment:
 1. [Kubernetes](https://github.com/matbragan/data-lake-solution/tree/main/infra/kubernets)
-2. [GitOps](https://github.com/matbragan/data-lake-solution/tree/main/infra/argocd)
+2. [GitOps](https://github.com/matbragan/data-lake-solution/tree/main/infra/gitops)
 3. [Platform](https://github.com/matbragan/data-lake-solution/tree/main/infra/platform)
 
 ### App

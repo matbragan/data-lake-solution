@@ -6,11 +6,10 @@
 
 ### Infra
 All the resources needed to create a Kubernetes cluster as well the complete Platform
-for the data environment using - or not - GitOps.
+for the data environment.
 
 For environment deployment:
 1. [Kubernetes](https://github.com/matbragan/data-lake-solution/tree/main/infra/kubernetes)
-2. [GitOps](https://github.com/matbragan/data-lake-solution/tree/main/infra/gitops)
 3. [Platform](https://github.com/matbragan/data-lake-solution/tree/main/infra/platform)
 
 ### App

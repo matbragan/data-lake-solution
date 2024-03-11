@@ -12,7 +12,6 @@ For environment deployment:
 1. [Kubernetes](https://github.com/matbragan/data-lake-solution/tree/main/infra/kubernetes)
 2. [GitOps](https://github.com/matbragan/data-lake-solution/tree/main/infra/gitops)
 3. [Platform](https://github.com/matbragan/data-lake-solution/tree/main/infra/platform)
-4. [Orchestration](https://github.com/matbragan/data-lake-solution/tree/main/infra/orchestration)
 
 ### App
 Development of an application that creates json or parquet files to place in the landing zone folder of a Data Lake, in this case using MinIO (s3).

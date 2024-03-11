@@ -10,9 +10,6 @@
 ~~~sh
 az login
 az account set --subscription <sub_id>
-
-# get possible vm sizes
-az vm list-sizes --location brazilsouth
 ~~~
 
 #### Terraform

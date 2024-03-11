@@ -128,6 +128,7 @@ celerybeat.pid
 
 # Environments
 .env
+!app/data-gen-datastores/.env
 .venv
 env/
 venv/

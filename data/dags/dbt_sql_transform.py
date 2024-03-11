@@ -21,7 +21,7 @@ doc_md = """
 """
 
 default_args = {
-    "owner": "owshq",
+    "owner": "lake",
     "retries": 1,
     "retry_delay": 0
 }
@@ -32,11 +32,11 @@ dbt_root_path = Path(os.getenv("DBT_ROOT_PATH", default_dbt_root_path))
 profile_config = ProfileConfig(
     profile_name="iceberg",
     target_name="dev",
-    profiles_yml_filepath=(dbt_root_path / "owshq/profiles.yml")
+    profiles_yml_filepath=(dbt_root_path / "lake/profiles.yml")
 )
 
 dbt_sql_transform = DbtDag(
-    project_config=ProjectConfig((dbt_root_path / "owshq").as_posix()),
+    project_config=ProjectConfig((dbt_root_path / "lake").as_posix()),
     profile_config=profile_config,
     operator_args={
         "install_deps": True,

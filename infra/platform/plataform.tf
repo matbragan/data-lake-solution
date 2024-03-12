@@ -13,7 +13,6 @@ resource "helm_release" "minio-tenant" {
     chart            = "tenant"
     name             = "tenant"
     namespace        = "deepstorage"
-    create_namespace = true
     values           = [file("values/minio-tenant.yaml")]
 }
 
@@ -37,18 +36,17 @@ resource "helm_release" "trino" {
 }
 
 resource "null_resource" "gitsync-credentials" {
-    depends_on  = [helm_release.trino]
     provisioner "local-exec" {
         command = "kubectl create namespace orchestration && kubectl apply -f gitsync-credentials.yaml --namespace orchestration"
     }
 }
+
 resource "helm_release" "airflow" {
     depends_on       = [null_resource.gitsync-credentials]
     repository       = "https://airflow.apache.org"
     chart            = "airflow"
     name             = "airflow"
     namespace        = "orchestration"
-    create_namespace = true
     values           = [file("values/airflow.yaml")]
     timeout          = 600
 }

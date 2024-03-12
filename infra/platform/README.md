@@ -23,5 +23,3 @@ Now you can connect to the Trino coordinator at http://localhost:8080, with trin
 - [MinIO Operator Helm](https://min.io/docs/minio/kubernetes/upstream/operations/install-deploy-manage/deploy-operator-helm.html)
 - [MinIO Tenant Helm](https://min.io/docs/minio/kubernetes/openshift/operations/install-deploy-manage/deploy-minio-tenant-helm.html)
 - [Trino Helm](https://trino.io/docs/current/installation/kubernetes.html#creating-your-own-yaml)
-- [Airflow Helm Chart doc](https://airflow.apache.org/docs/helm-chart/stable/index.html)
-- [Airflow Helm Chart package](https://artifacthub.io/packages/helm/apache-airflow/airflow)

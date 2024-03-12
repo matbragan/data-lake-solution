@@ -18,9 +18,10 @@ Development of an application that creates json or parquet files to place in the
 1. [Data Gen DataStores](https://github.com/matbragan/data-lake-solution/tree/main/app/data-gen-datastores)
 
 ### Data
-Creating a data pipeline using Apache Airflow, Trino & dbt-Core to create a complete end-to-end data environment.
+Creating a data pipeline using Trino, dbt-Core & Apache Airflow to create a complete end-to-end data environment.
 
-To build the data environment, follow the steps:
+To build the data environment:
 1. [Trino](https://github.com/matbragan/data-lake-solution/tree/main/data/sql)
 2. [dbt-Core](https://github.com/matbragan/data-lake-solution/tree/main/data/dags/dbt/lake)
-3. [Airflow](https://github.com/matbragan/data-lake-solution/tree/main/data/dags/dbt_sql_transform.py)
+3. [Airflow](https://github.com/matbragan/data-lake-solution/tree/main/infra/orchestration)
+4. [DAG](https://github.com/matbragan/data-lake-solution/tree/main/data/dags/dbt_sql_transform.py)

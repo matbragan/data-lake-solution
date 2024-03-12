@@ -18,11 +18,6 @@ terraform init
 terraform apply
 ~~~
 
-#### Merge cluster in context
-~~~sh
-az aks get-credentials --resource-group DataLakeSolution --name DataLake --overwrite-existing
-~~~
-
 ### Useful links
 - [Terraform tutorial Azure](https://developer.hashicorp.com/terraform/tutorials/azure-get-started/azure-build)
 - [Azure Provider doc](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs)

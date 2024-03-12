@@ -50,4 +50,5 @@ resource "helm_release" "airflow" {
     namespace        = "orchestration"
     create_namespace = true
     values           = [file("values/airflow.yaml")]
+    timeout          = 600
 }

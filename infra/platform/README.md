@@ -6,20 +6,14 @@ terraform init
 terraform apply
 ~~~
 
-### Expose MinIO console
+### Fix External IP pending (Minikube)
 ~~~sh
-kubectl port-forward svc/console -n deepstorage 9090:9090
-
-# copy in clipboard the JWT
-kubectl get secret/console-sa-secret -n deepstorage -o json | jq -r ".data.token" | \
-base64 -d | xclip -selection clipboard
+minikube tunnel
 ~~~
-Now you can connect to the MinIO console at http://localhost:9090, with JWT previously copied.
 
 ### Expose Trino
 ~~~sh
-POD_NAME=$(kubectl get pods -n trino -l "app=trino,release=trino,component=coordinator" \
---field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')
+POD_NAME=$(kubectl get pods -n trino -l 'app=trino,release=trino,component=coordinator' --field-selector=status.phase=Running -o jsonpath='{.items[0].metadata.name}')
 
 kubectl port-forward $POD_NAME -n trino 8080:8080
 ~~~

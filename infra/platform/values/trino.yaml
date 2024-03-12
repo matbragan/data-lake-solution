@@ -9,11 +9,10 @@ image:
   # Same value as Chart.yaml#appVersion
   tag: 432
 
-imagePullSecrets:
-  - name: registry-credentials
+imagePullSecrets: [ ]
 
 server:
-  workers: 3
+  workers: 2
   node:
     environment: production
     dataDir: /data/trino

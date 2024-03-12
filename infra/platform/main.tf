@@ -37,6 +37,7 @@ resource "helm_release" "trino" {
 }
 
 resource "null_resource" "gitsync-credentials" {
+    depends_on  = [helm_release.trino]
     provisioner "local-exec" {
         command = "kubectl create namespace orchestration && kubectl apply -f gitsync-credentials.yaml --namespace orchestration"
     }

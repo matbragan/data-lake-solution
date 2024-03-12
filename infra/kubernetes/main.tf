@@ -20,3 +20,10 @@ resource "azurerm_kubernetes_cluster" "k8s" {
         type = "SystemAssigned"
     }
 }
+
+resource "null_resource" "use-context" {
+    depends_on  = [azurerm_kubernetes_cluster.k8s]
+    provisioner "local-exec" {
+        command = "az aks get-credentials --resource-group DataLakeSolution --name DataLake --overwrite-existing"
+    }
+}

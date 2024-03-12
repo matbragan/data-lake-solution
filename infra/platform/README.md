@@ -2,10 +2,6 @@
 
 ### Build
 ~~~sh
-# necessary to build airflow with gitsync
-kubectl create namespace orchestration
-kubectl apply -f gitsync-credentials.yaml --namespace orchestration
-
 terraform init
 terraform apply
 ~~~

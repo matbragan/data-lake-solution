@@ -37,9 +37,9 @@ tenant:
       ## volumesPerServer specifies the number of volumes attached per MinIO Tenant Pod / Server.
       volumesPerServer: 2
       ## size specifies the capacity per volume
-      size: 100Gi
+      size: 50Gi
       ## storageClass specifies the storage class name to be used for this pool
-      storageClassName: default
+      storageClassName: standard
       ## Used to specify annotations for pods
       annotations: { }
       ## Used to specify labels for pods
@@ -136,7 +136,7 @@ tenant:
   ## service is exposed as a loadbalancer in k8s service.
   exposeServices:
     minio: true
-    console: false
+    console: true
   # kubernetes service account associated with a specific tenant
   # https://kubernetes.io/docs/tasks/configure-pod-container/configure-service-account/
   serviceAccountName: ""

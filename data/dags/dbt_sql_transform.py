@@ -1,14 +1,8 @@
-"""
-"""
-
 import os
 import logging
 from datetime import datetime
 from datetime import timedelta
 from pathlib import Path
-
-from airflow.decorators import dag
-from airflow.operators.empty import EmptyOperator
 
 from cosmos import (
     DbtDag,
@@ -17,8 +11,6 @@ from cosmos import (
 )
 
 logger = logging.getLogger(__name__)
-doc_md = """
-"""
 
 default_args = {
     "owner": "lake",

@@ -5,8 +5,7 @@
 <img width="600em" src="docs/architecture.png">
 
 ### Infra
-All the resources needed to create a Kubernetes cluster as well the complete Platform
-for the data environment.
+All the resources needed to create a Kubernetes cluster as well the Platform for the data environment.
 
 For environment deployment:
 1. [Kubernetes](https://github.com/matbragan/data-lake-solution/tree/main/infra/kubernetes)

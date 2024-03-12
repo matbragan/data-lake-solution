@@ -1,3 +1,3 @@
-# Create schemas & tables Trino
+# SQL Scripts
 
-#### Scripts in sql to create schemas and tables in Trino
+#### SQL scripts to create schemas and tables in Trino.

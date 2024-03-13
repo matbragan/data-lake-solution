@@ -1,7 +1,8 @@
 # Data Gen DataStores
 
 ### Write data to [interface]
-Use `object_storage.sh` to automatic write some data.
+- Change ENDPOINT in `.env` to LoadBalancer IP of MinIO.
+- Use `object_storage.sh` to automatic write some data.
 ~~~sh
 python cli.py --help
 

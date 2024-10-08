@@ -1,14 +1,14 @@
 ## Secret with default environment variable configurations to be used by MinIO Tenant.
 ## Not recommended for production deployments! Create the secret manually instead.
-secrets:
-  name: minio-env-configuration-data-lake
-  # MinIO root user and password
-  accessKey: data-lake
-  secretKey: 12620ee6-2162-11ee-be56-0242ac120002
   ## Set the value for existingSecret to use a pre created secret and dont create default one
   # existingSecret: random-env-configuration
 ## MinIO Tenant Definition
 tenant:
+  configSecret:
+    name: minio-env-configuration-data-lake
+    # MinIO root user and password
+    accessKey: data-lake
+    secretKey: 12620ee6-2162-11ee-be56-0242ac120002
   # Tenant name
   name: datalake
   ## Registry location and Tag to download MinIO Server image
